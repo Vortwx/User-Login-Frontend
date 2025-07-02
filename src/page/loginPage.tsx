@@ -61,13 +61,12 @@ const LoginPage: React.FC = () => {
                 preAuthToken: preAuthToken,
                 dynamicCode: values.dynamicCode,
             };
-            console.log(preAuthToken);
             await axiosInstance.post<LoginDynamicCodeCommandResponse>('/auth/login/dynamic-code', command);
             auth.login(); 
             message.success('Login successful! Welcome!');
         } catch (error: any) {
             console.error('Dynamic code verification failed:', error.response?.data || error.message);
-            setTimeout(() => message.error(error.response?.data?.message || 'Dynamic code verification failed.'), 50);
+            message.error(error.response?.data?.message || 'Dynamic code verification failed.');
             
         } finally {
             setLoading(false);
